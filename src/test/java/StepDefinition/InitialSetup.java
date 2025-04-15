@@ -1,14 +1,37 @@
 package StepDefinition;
 
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class InitialSetup {
+	WebDriver driver = new ChromeDriver();
 
 	@Given("Initialize web deriver and open the google site")
 	public void fun() {
 		System.out.println("Given executed");
+		
+		
+		driver.get("https://www.google.com");
+		
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 	
 	@When("execute when")
@@ -19,6 +42,10 @@ public class InitialSetup {
 	@Then("execute Then")
 	public void testThen() {
 		System.out.println("Then executed");
+		System.out.println("Closing the browser");
+		driver.close();
+		driver.quit();
+		
 	}
    
 }
