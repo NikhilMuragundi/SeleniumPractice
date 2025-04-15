@@ -8,14 +8,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.*;
 
 public class InitialSetup {
-	WebDriver driver = new ChromeDriver();
-
+	WebDriver driver; 
+	
+	@BeforeAll
+	public static void beforeall() {
+		System.out.println("BeforeAll executed");
+	}
+	
 	@Given("Initialize web deriver and open the google site")
 	public void fun() {
 		System.out.println("Given executed");
-		
+		driver = new ChromeDriver();
 		
 		driver.get("https://www.google.com");
 		
@@ -27,11 +33,9 @@ public class InitialSetup {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
-		
-		
+		}	
+		System.out.println("Closing the browser");
+		driver.quit();
 	}
 	
 	@When("execute when")
@@ -42,10 +46,12 @@ public class InitialSetup {
 	@Then("execute Then")
 	public void testThen() {
 		System.out.println("Then executed");
-		System.out.println("Closing the browser");
-		driver.close();
-		driver.quit();
 		
 	}
    
+	@AfterAll
+	public static void endTest() {
+		
+		System.out.println("AfterAll execited");
+	}
 }
